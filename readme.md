@@ -2,13 +2,12 @@
 <!-- [✅❌] -->
 
 Front end:
-1. C
+1. Create UI
 
 
 
 Back end:
 1. Lista de palabras
-2. E
 
 ### Response
 

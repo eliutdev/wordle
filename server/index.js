@@ -13,7 +13,7 @@ let db = [{
 
 let generateWordle = () => {
   let wordsEn = JSON.parse(wordsEnRaw);
-  return wordsEn[0]
+  return "THERE"
 }
 let checkWordExists = async (word) => {
   try {
@@ -37,19 +37,27 @@ app.get('/start-game/:id', (req, res) => {
   } else res.json({ result: "fail" });
 })
 
-app.get('/check-word/:id/:word', (req, res) => {
+app.get('/check-word/:id/:word', async (req, res) => {
   let { id } = req.params;
   let { word } = req.params;
 
-  let result = db.find(el => el.id === id)
-  if (result == undefined) {
-    res.json({ result: "fail" });
+  let exists = await checkWordExists(word);
+  if (exists) {
+    let result = db.find(el => el.id === id)
+    if (result == undefined) {
+      res.json({ result: "fail", info: "Words not match" });
+
+    } else {
+      res.json({ result: "success" });
+    }
+
   } else {
+    res.json({ result: "fail", info: "Words doesn't exist" });
 
   }
 
 
-  res.send(word);
+
 })
 
 let wordsEnRaw;

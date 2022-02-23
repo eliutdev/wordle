@@ -10,9 +10,9 @@ Back end:
 1. Lista de palabras
 
 ### Response
-
+green tendra prioridad sobre yellow
 ```js
 {
-    positionCorrect: ['a'],
-    includesInWord: ['a', 'c']
+    green: [0, 1, 2, 4]
+    yellow: [0, 2, 4]
 }

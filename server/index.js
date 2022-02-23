@@ -17,10 +17,9 @@ let generateWordle = () => {
 }
 let checkWordExists = async (word) => {
   try {
-    const resp = await axios.get('https://api.dictionaryapi.dev/api/v2/entries/en/' + word);
+    await axios.get('https://api.dictionaryapi.dev/api/v2/entries/en/' + word);
     return true
   } catch (err) {
-    // Handle Error Here
     return false
   }
 }
@@ -45,10 +44,29 @@ app.get('/check-word/:id/:word', async (req, res) => {
   if (exists) {
     let result = db.find(el => el.id === id)
     if (result == undefined) {
-      res.json({ result: "fail", info: "Words not match" });
+      res.json({ result: "fail", info: "Session/id not found" });
 
     } else {
-      res.json({ result: "success" });
+      console.log(result);
+      let resData = { green: [], yellow: [] }
+      // check greens
+      for (let i = 0; i < word.length; i++) {
+        // const db = array[i];
+        if (word[i] == result.word[i]) {
+          resData.green.push(i)
+        }
+      }
+
+      // check yellows
+      for (let i = 0; i < word.length; i++) {
+        // const db = array[i];
+        if (result.word.includes(word[i])) {
+          resData.yellow.push(i)
+        }
+      }
+
+
+      res.json({ result: "success", data: resData });
     }
 
   } else {

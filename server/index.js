@@ -6,16 +6,9 @@ app.use(cors())
 const axios = require('axios');
 var dbb = require('./db.js')
 var helperW = require('./helper.wordle.js')
-let db = [{
-  id: "0e79837d-0367-418b-a1cd-67d6c2f53393",
-  word: "EARTH"
-}]
+
 
 app.get('/', async (req, res) => {
-  // console.log(dbb.session("0e79837d-0367-418b-a1cd-67d6c2f53393"));
-  console.log(dbb.db());
-  // console.log(helperW.checkWordCorrect("donda", "words"));
-  // console.log(await helperW.checkWordExists("hello"));
   res.send("OK")
 })
 

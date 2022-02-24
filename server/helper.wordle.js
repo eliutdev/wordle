@@ -34,15 +34,6 @@ module.exports = {
             }
         }
 
-        //remove unneccecery
-        //  resData.green.forEach(g => {
-        //     let currentLetter = userW[g]
-        //     resData.yellow.forEach(y => {
-        //         if (currentLetter == userW[y]) {
-        //             resData.yellow.splice(y, 1);
-        //         }
-        //     });
-        // });
         console.log(resData);
         return resData
 

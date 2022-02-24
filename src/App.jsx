@@ -7,7 +7,7 @@ function App() {
   const [grid, setGrid] = useState(Array.from({ length: 6 }, () => Array.from({ length: 5 }, () => '')));
   const [gridColor, setGridColor] = useState(Array.from({ length: 6 }, () => Array.from({ length: 5 }, () => '')));
   const [current, setCurrent] = useState({ row: 0 })
-  const [id, serId] = useState(crypto.randomUUID())
+  const [id, setId] = useState(crypto.randomUUID())
   const [win, setWin] = useState(false)
   const [wordle, setWordle] = useState("")
 
@@ -22,7 +22,6 @@ function App() {
   }, []);
 
   const handLetter = (letter) => {
-
 
     let row = current.row
     let hayVacio = false
@@ -39,7 +38,6 @@ function App() {
         if (current.row == 5) {
           alert("Has perdido")
         }
-        // console.log(grid[row].join(""));
         handleEnter(hayVacio, grid[row].join(""))
         break
       case "DELETE":

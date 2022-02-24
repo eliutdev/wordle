@@ -5,6 +5,8 @@ module.exports = {
     wordsEnRaw: fs.readFileSync('words.en.json'),
 
     checkWordExists: async (word) => {
+        return true
+
         try {
             await axios.get('https://api.dictionaryapi.dev/api/v2/entries/en/' + word);
             return true
@@ -33,15 +35,15 @@ module.exports = {
         }
 
         //remove unneccecery
-         resData.green.forEach(g => {
-            let currentLetter = userW[g]
-            resData.yellow.forEach(y => {
-                if (currentLetter == userW[y]) {
-                    resData.yellow.splice(y, 1);
-                }
-            });
-        });
-
+        //  resData.green.forEach(g => {
+        //     let currentLetter = userW[g]
+        //     resData.yellow.forEach(y => {
+        //         if (currentLetter == userW[y]) {
+        //             resData.yellow.splice(y, 1);
+        //         }
+        //     });
+        // });
+        console.log(resData);
         return resData
 
     },

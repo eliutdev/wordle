@@ -13,8 +13,8 @@ let db = [{
 
 app.get('/', async (req, res) => {
   // console.log(dbb.session("0e79837d-0367-418b-a1cd-67d6c2f53393"));
-  // console.log(dbb.db());
-  console.log(helperW.checkWordCorrect("donda", "words"));
+  console.log(dbb.db());
+  // console.log(helperW.checkWordCorrect("donda", "words"));
   // console.log(await helperW.checkWordExists("hello"));
   res.send("OK")
 })
@@ -42,24 +42,7 @@ app.get('/check-word/:id/:word', async (req, res) => {
       res.json({ result: "fail", info: "Session/id not found" });
 
     } else {
-      // let resData = { green: [], yellow: [] }
-      // // check greens
-      // for (let i = 0; i < word.length; i++) {
-      //   // const db = array[i];
-      //   if (word[i] == result.word[i]) {
-      //     resData.green.push(i)
-      //   }
-      // }
-
-      // // check yellows
-      // for (let i = 0; i < word.length; i++) {
-      //   // const db = array[i];
-      //   if (result.word.includes(word[i])) {
-      //     resData.yellow.push(i)
-      //   }
-      // }
-
-      let resData = helperW.checkWordCorrect(word, result.word)
+      let resData = await helperW.checkWordCorrect(word, result.word)
       res.json({ result: "success", data: resData });
     }
 

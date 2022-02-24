@@ -23,3 +23,13 @@
 .col.active {
   border-color: #000000;
 }
+
+.gray{
+  background-color: #9f9f9f;
+}
+.yellow{
+  background-color: #f1fa6f;
+}
+.green{
+  background-color: #46fd3f;
+}

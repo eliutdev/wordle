@@ -5,8 +5,10 @@ import Keyboard from './components/Keyboard';
 
 function App() {
   const [grid, setGrid] = useState(Array.from({ length: 6 }, () => Array.from({ length: 5 }, () => '')));
+  const [gridColor, setGridColor] = useState(Array.from({ length: 6 }, () => Array.from({ length: 5 }, () => '')));
   const [current, setCurrent] = useState({ row: 0 })
   const [id, serId] = useState(crypto.randomUUID())
+  const [win, setWin] = useState(false)
 
   useEffect(() => {
     (async () => {
@@ -54,11 +56,34 @@ function App() {
       (async () => {
         const response = await fetch(`http://localhost:3001/check-word/${id}/${word}/`)
         const data = await response.json();
-        console.log(data)
+        console.log(data.data)
+
+
+        let gridColorTemp = [...gridColor]
+
+
+        for (let j = 0; j < 5; j++) {
+          gridColorTemp[current.row][j] = "gray"
+        }
+        for (let j = 0; j < data.data.yellow.length; j++) {
+          const element = data.data.yellow[j];
+          gridColorTemp[current.row][element] = "yellow"
+        }
+        for (let j = 0; j < data.data.green.length; j++) {
+          const element = data.data.green[j];
+          gridColorTemp[current.row][element] = "green"
+        }
+        console.log(gridColorTemp);
+        setGridColor(gridColorTemp)
+
+        if (data.data.green.length == 5) {
+          setWin(true)
+          alert("Has Ganado")
+        }
       })();
 
 
-      if (current.row <= 4) {
+      if (current.row <= 4 && !win) {
         setCurrent({ row: current.row + 1 })
       }
     }
@@ -70,7 +95,14 @@ function App() {
         {grid.map((_, i) => (
           <div className="row" key={i}>
             {grid[i].map((_, j) => (
-              <div className={grid[i][j] ? 'col active' : 'col'} key={j}>{grid[i][j]}</div>
+              <div
+                className={`
+                ${(grid[i][j] ? 'col active' : 'col')}  
+                ${(gridColor[i][j] == "green" ? 'green' : '')}
+                ${(gridColor[i][j] == "yellow" ? 'yellow' : '')}
+                ${(gridColor[i][j] == "gray" ? 'gray' : '')}
+                
+                `} key={j}>{grid[i][j]} </div>
             ))}
           </div>
         ))}

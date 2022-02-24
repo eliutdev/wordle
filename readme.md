@@ -1,18 +1,3 @@
-# Creando Wordle.
-<!-- [✅❌] -->
+# Creando Wordle con ReactJS
 
-Front end:
-1. Create UI
-
-
-
-Back end:
-1. Lista de palabras
-
-### Response
-green tendra prioridad sobre yellow
-```js
-{
-    green: [0, 1, 2, 4]
-    yellow: [0, 2, 4]
-}
+![alt text]( https://i.imgur.com/xbn4VQr.png)

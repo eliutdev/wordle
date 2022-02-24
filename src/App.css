@@ -24,12 +24,22 @@
   border-color: #000000;
 }
 
-.gray{
+.gray {
   background-color: #9f9f9f;
 }
-.yellow{
+
+.yellow {
   background-color: #f1fa6f;
 }
-.green{
+
+.green {
   background-color: #46fd3f;
+}
+
+.info {
+  padding: 0 30px;
+}
+
+.hint {
+  color: #8585858a;
 }

@@ -49,6 +49,6 @@ module.exports = {
     },
     generateWordle: function () {
         let wordsEn = JSON.parse(this.wordsEnRaw);
-        return "THERE"
+        return wordsEn[Math.floor(Math.random() * wordsEn.length)].toUpperCase();
     }
 }

@@ -9,18 +9,21 @@ function App() {
   const [current, setCurrent] = useState({ row: 0 })
   const [id, serId] = useState(crypto.randomUUID())
   const [win, setWin] = useState(false)
+  const [wordle, setWordle] = useState("")
 
   useEffect(() => {
     (async () => {
       const response = await fetch(`http://localhost:3001/start-game/${id}`)
       const data = await response.json();
       console.log(data)
+      if (data.result !== "fail")
+        setWordle(data.word)
     })();
   }, []);
 
-
-
   const handLetter = (letter) => {
+
+
     let row = current.row
     let hayVacio = false
     let col = 0
@@ -33,6 +36,9 @@ function App() {
 
     switch (letter) {
       case "ENTER":
+        if (current.row == 5) {
+          alert("Has perdido")
+        }
         // console.log(grid[row].join(""));
         handleEnter(hayVacio, grid[row].join(""))
         break
@@ -58,9 +64,11 @@ function App() {
         const data = await response.json();
         console.log(data.data)
 
+        if (data.result == "fail") {
+          return
+        }
 
         let gridColorTemp = [...gridColor]
-
 
         for (let j = 0; j < 5; j++) {
           gridColorTemp[current.row][j] = "gray"
@@ -82,27 +90,27 @@ function App() {
         }
       })();
 
-
       if (current.row <= 4 && !win) {
         setCurrent({ row: current.row + 1 })
+      } else if (current.row == 5) {
+
       }
     }
   }
 
   return (
     <div className="app">
+      <div className='info'>
+
+        <h2 className='hint'>Pista: {wordle}</h2>
+      </div>
       <div className='grid'>
         {grid.map((_, i) => (
           <div className="row" key={i}>
             {grid[i].map((_, j) => (
               <div
-                className={`
-                ${(grid[i][j] ? 'col active' : 'col')}  
-                ${(gridColor[i][j] == "green" ? 'green' : '')}
-                ${(gridColor[i][j] == "yellow" ? 'yellow' : '')}
-                ${(gridColor[i][j] == "gray" ? 'gray' : '')}
-                
-                `} key={j}>{grid[i][j]} </div>
+                className={`${(grid[i][j] ? 'col active' : 'col')} ${(gridColor[i][j] == "green" ? 'green' : '')}
+                ${(gridColor[i][j] == "yellow" ? 'yellow' : '')} ${(gridColor[i][j] == "gray" ? 'gray' : '')}`} key={j}>{grid[i][j]} </div>
             ))}
           </div>
         ))}

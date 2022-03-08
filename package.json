@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reliutg/buzz-notify": "^2.4.3",
     "axios": "^0.26.0",
     "cors": "^2.8.5",
     "express": "^4.17.3",

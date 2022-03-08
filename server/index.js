@@ -1,54 +1,45 @@
-const express = require('express')
-var cors = require('cors')
-const fs = require('fs');
-const app = express()
-app.use(cors())
-const axios = require('axios');
-var dbb = require('./db.js')
-var helperW = require('./helper.wordle.js')
+const express = require("express");
+const cors = require("cors");
+const app = express();
 
+app.use(cors());
 
-app.get('/', async (req, res) => {
-  res.send("OK")
-})
+const db = require("./db.js");
+const helperW = require("./helper.wordle.js");
 
-app.get('/start-game/:id', (req, res) => {
-  let { id } = req.params;
-  let result = dbb.session(id)
+app.get("/", async (_, res) => {
+  res.send("OK");
+});
 
-  if (result == undefined) {
-    const word = helperW.generateWordle()
-    const session = { id, word }
-    dbb.add(session)
+app.get("/start-game/:id", (req, res) => {
+  const { id } = req.params;
+  const result = db.session(id);
+  if (!result) {
+    const word = helperW.generateWordle();
+    const session = { id, word };
+    db.add(session);
     res.json({ result: "success", ...session });
   } else res.json({ result: "fail" });
-})
+});
 
-app.get('/check-word/:id/:word', async (req, res) => {
-  let { id } = req.params;
-  let { word } = req.params;
-
-  let exists = await helperW.checkWordExists(word);
+app.get("/check-word/:id/:word", async (req, res) => {
+  const { id } = req.params;
+  const { word } = req.params;
+  const exists = await helperW.checkWordExists(word);
+  console.log("EXISTS: ", exists);
   if (exists) {
-    let result = dbb.session(id)
-    if (result == undefined) {
-      res.json({ result: "fail", info: "Session/id not found" });
-
+    const result = db.session(id);
+    if (!result) {
+      res.json({ result: "fail", info: "Session not found" });
     } else {
-      let resData = await helperW.checkWordCorrect(word, result.word)
+      const resData = await helperW.checkWordCorrect(word, result.word);
       res.json({ result: "success", data: resData });
     }
-
   } else {
-    res.json({ result: "fail", info: "Words doesn't exist" });
-
+    res.json({ result: "fail", info: "Word not found" });
   }
+});
 
-})
-
-let wordsEnRaw;
 app.listen(3001, async () => {
-  wordsEnRaw = fs.readFileSync('words.en.json');
-  console.log('Starting!')
-})
-
+  console.log("Starting!");
+});

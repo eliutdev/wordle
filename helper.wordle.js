@@ -2,7 +2,7 @@ const axios = require("axios");
 const fs = require("fs");
 const { join } = require("path");
 
-module.exports = {
+export default {
   wordsEnRaw: fs.readFileSync(join(__dirname, "words.en.json")),
   checkWordExists: async (word) => {
     try {

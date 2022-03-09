@@ -6,6 +6,12 @@ import "@reliutg/buzz-notify/dist/buzz-notify.css";
 
 import Keyboard from "./components/Keyboard";
 
+const KEYS = [
+  ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+  ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Ñ"],
+  ["Z", "X", "C", "V", "B", "N", "M"],
+].flat();
+
 function App() {
   const [grid, setGrid] = useState(
     Array.from({ length: 6 }, () => Array.from({ length: 5 }, () => ""))
@@ -13,10 +19,18 @@ function App() {
   const [gridColor, setGridColor] = useState(
     Array.from({ length: 6 }, () => Array.from({ length: 5 }, () => ""))
   );
+  const [keywordsColor, setKeywordsColor] = useState(() => {
+    return Array.from({ length: KEYS.length }, (_, index) => {
+      return {
+        key: KEYS[index],
+        color: "rgb(211, 214, 218)",
+      };
+    });
+  });
   const [current, setCurrent] = useState({ row: 0 });
   const [id] = useState(crypto.randomUUID());
   const [win, setWin] = useState(false);
-  const [wordle, setWordle] = useState("");
+  const [, setWordle] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -30,6 +44,26 @@ function App() {
       }
     })();
   }, []);
+
+  const updateKeywordsColor = () => {
+    grid.forEach((row, i) => {
+      row.forEach((col, j) => {
+        if (col !== "") {
+          setKeywordsColor((prev) =>
+            prev.map((keyword) => {
+              if (keyword.key === col) {
+                return {
+                  ...keyword,
+                  color: gridColor[i][j],
+                };
+              }
+              return keyword;
+            })
+          );
+        }
+      });
+    });
+  };
 
   const handLetter = (letter) => {
     let row = current.row;
@@ -45,8 +79,9 @@ function App() {
       case "ENTER":
         if (current.row == 5) {
           return Notify({
-            type: "error",
-            message: "You can't go down anymore",
+            type: "danger",
+            title: "You can't go down anymore",
+            position: "bottom-center",
           });
         }
         handleEnter(isEmpty, grid[row].join(""));
@@ -123,6 +158,8 @@ function App() {
         position: "bottom-center",
       });
     }
+
+    updateKeywordsColor();
   };
 
   const handleDelete = (row, col, isEmpty) => {
@@ -160,7 +197,7 @@ function App() {
           ))}
         </div>
       </div>
-      <Keyboard onClick={handLetter} />
+      <Keyboard onClick={handLetter} colors={keywordsColor} />
       <div id="notify" />
     </div>
   );

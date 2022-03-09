@@ -1,12 +1,10 @@
-import { useState } from "react";
-
 const KEYS = [
   ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
   ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Ñ"],
   ["ENTER", "Z", "X", "C", "V", "B", "N", "M", "DELETE"],
 ];
 
-export default Keyboard = ({ onClick }) => {
+export default Keyboard = ({ onClick, colors }) => {
   return (
     <div
       style={{
@@ -42,7 +40,8 @@ export default Keyboard = ({ onClick }) => {
                 padding: "0.33rem",
                 cursor: "pointer",
                 border: "none",
-                backgroundColor: "#d3d6da",
+                backgroundColor: colors.find((color) => color.key === key)
+                  ?.color,
               }}
             >
               {key}

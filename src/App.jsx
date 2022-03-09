@@ -137,26 +137,28 @@ function App() {
   return (
     <div className="app">
       <div className="info">
-        <h2 className="hint">Pista: {wordle}</h2>
+        <h2 className="hint">Wordle</h2>
       </div>
-      <div className="grid">
-        {grid.map((_, i) => (
-          <div className="row" key={i}>
-            {grid[i].map((_, j) => (
-              <div
-                className={`${grid[i][j] ? "col active" : "col"} ${
-                  gridColor[i][j] == "green" ? "green" : ""
-                }
+      <div className="grid-wrapper">
+        <div className="grid">
+          {grid.map((_, i) => (
+            <div className="row" key={i}>
+              {grid[i].map((_, j) => (
+                <div
+                  className={`${grid[i][j] ? "col active" : "col"} ${
+                    gridColor[i][j] == "green" ? "green" : ""
+                  }
                 ${gridColor[i][j] == "yellow" ? "yellow" : ""} ${
-                  gridColor[i][j] == "gray" ? "gray" : ""
-                }`}
-                key={j}
-              >
-                {grid[i][j]}{" "}
-              </div>
-            ))}
-          </div>
-        ))}
+                    gridColor[i][j] == "gray" ? "gray" : ""
+                  }`}
+                  key={j}
+                >
+                  {grid[i][j]}{" "}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
       <Keyboard onClick={handLetter} />
       <div id="notify" />

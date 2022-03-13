@@ -35,9 +35,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(
-        `http://localhost:3000/api/start-game/${id}`
-      );
+      const response = await fetch(`/api/start-game/${id}`);
       const data = await response.json();
       console.log(data);
       if (data.result !== "fail") {
@@ -109,9 +107,7 @@ function App() {
       });
     }
 
-    const response = await fetch(
-      `http://localhost:3000/api/check-word/${word}?id=${id}`
-    );
+    const response = await fetch(`/api/check-word/${word}?id=${id}`);
 
     const data = await response.json();
 

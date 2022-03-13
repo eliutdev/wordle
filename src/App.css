@@ -40,11 +40,8 @@
   line-height: 50px;
   font-weight: bold;
   font-size: 1.5rem;
+  color: #fff;
   border: 1px solid #00000025;
-}
-
-.col.active {
-  border-color: #000000;
 }
 
 .gray {
@@ -52,11 +49,11 @@
 }
 
 .yellow {
-  background-color: #f1fa6f;
+  background-color: #c9b458;
 }
 
 .green {
-  background-color: #35984b;
+  background-color: #6aaa64;
 }
 
 .info {
@@ -87,12 +84,6 @@
 
 @media (prefers-color-scheme: dark) {
   .col {
-    border-color: #9f9f9f;
-  }
-  .col.active {
-    border-color: #9f9f9f;
-  }
-  .col.active.gray {
-    color: #111;
+    border-color: #666;
   }
 }

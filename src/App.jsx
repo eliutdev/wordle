@@ -5,6 +5,7 @@ import { Notify } from "@reliutg/buzz-notify";
 import "@reliutg/buzz-notify/dist/buzz-notify.css";
 
 import Keyboard from "./components/Keyboard";
+import ThemeToggler from "./components/ThemeToggler";
 
 const KEYS = [
   ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
@@ -175,6 +176,7 @@ function App() {
     <div className="app">
       <div className="info">
         <h2 className="hint">Wordle</h2>
+        <ThemeToggler />
       </div>
       <div className="grid-wrapper">
         <div className="grid">

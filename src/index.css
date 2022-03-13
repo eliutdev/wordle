@@ -17,9 +17,7 @@ code {
 }
 
 /* check if dark mode */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #111;
-    color: #9f9f9f;
-  }
+.dark-mode body {
+  background-color: #111;
+  color: #9f9f9f;
 }
